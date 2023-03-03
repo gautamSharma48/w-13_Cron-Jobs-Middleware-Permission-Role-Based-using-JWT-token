@@ -1,0 +1,27 @@
+{
+  "name": "w-13_cron-jobs-middleware-permission-role-based-using-jwt-token",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zz9876/w-13_Cron-Jobs-Middleware-Permission-Role-Based-using-JWT-token.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zz9876/w-13_Cron-Jobs-Middleware-Permission-Role-Based-using-JWT-token/issues"
+  },
+  "homepage": "https://github.com/zz9876/w-13_Cron-Jobs-Middleware-Permission-Role-Based-using-JWT-token#readme",
+  "dependencies": {
+    "cron-master": "^1.0.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "nodemon": "^2.0.21"
+  }
+}
