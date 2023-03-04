@@ -7,8 +7,6 @@ const verifyToken = (req, res, next) => {
 
   
   if (!token) return res.status(401).json({ message: "token not found" });
-  if (jwt.JsonWebTokenError) return res.status(401).json({ message: "token not valid" });
-  if (jwt.TokenExpiredError) return res.status(401).json({ message: "token is expired" });
 
   try {
     const payload = jwt.verify(token, process.env.SECRET_KEY);
@@ -16,7 +14,7 @@ const verifyToken = (req, res, next) => {
     req.user = payload;
     next();
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err);
   }
 };
 module.exports = {
