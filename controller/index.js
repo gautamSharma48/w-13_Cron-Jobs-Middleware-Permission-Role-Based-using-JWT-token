@@ -1,6 +1,7 @@
 const fs = require("fs");
 const UserSchema = require("../model/userSchema");
 const jwt = require("jsonwebtoken");
+const bcrypt =require("bcryptjs");
 
 const logData = () => {
   const folderPath = "./upload/";
@@ -14,12 +15,15 @@ const logData = () => {
 
 const createUser = async (req, res) => {
   const { name, email, password, role } = req.body;
-  const findUser=await UserSchema.findOne({email:email});
-  if(findUser) return res.status(400).json({msg:"user already registered ..sign in"})
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(password, salt);
+  const findUser = await UserSchema.findOne({ email: email });
+  if (findUser)
+    return res.status(400).json({ msg: "user already registered ..sign in" });
   const user = new UserSchema({
     name: name,
     email: email,
-    password: password,
+    password: hashPassword,
     role: role,
   });
   const result = await user.save();
@@ -30,7 +34,9 @@ const createUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const user = await UserSchema.findOne({ email: email });
+  const validatePassword = await bcrypt.compare(password, user.password);
   if (!user) return res.status(400).json({ msg: "please sign up" });
+  if (!validatePassword) return res.status(401).json({ error: "password is not validate" });
   const token = jwt.sign(
     { id: user._id, role: user.role },
     process.env.SECRET_KEY,
@@ -40,7 +46,6 @@ const loginUser = async (req, res) => {
     id: user._id,
     token: token,
   });
-  res.status(200).json(user);
 };
 
 const validateUser = (req, res) => {
@@ -50,5 +55,5 @@ module.exports = {
   logData,
   loginUser,
   createUser,
-  validateUser
+  validateUser,
 };

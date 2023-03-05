@@ -1,5 +1,6 @@
 const CronMasterJob = require("cron-master").CronMasterJob;
 const { logData } = require("../controller");
+
 module.exports = new CronMasterJob({
   // Optional. Used to determine when to trigger the 'time-warning'. Fires after
   // the provided number of milliseconds (e.g 2 minutes in the case below) has
