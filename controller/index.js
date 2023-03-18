@@ -11,7 +11,7 @@ const logData = () => {
     const date = now.toLocaleDateString();
     const time = now.toLocaleTimeString();
     const loggingData = `Logging Data at ${date + "-" + time} \n\n`;
-    fs.appendFileSync(folderPath + "log.txt", loggingData);
+    fs.appendFileSync(folderPath + "log.txt", loggingData );
   } catch (err) {
     console.log(err);
   }
